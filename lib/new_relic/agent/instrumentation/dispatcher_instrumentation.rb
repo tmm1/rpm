@@ -70,7 +70,7 @@ module NewRelic::Agent::Instrumentation
       end
       
       def is_busy?
-        @entrypoint_stack
+        not @entrypoint_stack.empty?
       end
       
       def harvest_busy

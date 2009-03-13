@@ -55,7 +55,7 @@ module NewRelic::Agent::Instrumentation
       @harvest_start = Time.now.to_f
       @accumulator = 0
       @dispatcher_start = nil    
-      
+      @entrypoint_stack = []
       def dispatcher_start(time)
         Thread.critical = true
         @entrypoint_stack.push time      

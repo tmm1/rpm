@@ -21,11 +21,12 @@ class NewRelic::Control::Rails < NewRelic::Control
       RAILS_DEFAULT_LOGGER.info "New Relic Agent not running"
     else
       RAILS_DEFAULT_LOGGER.info "Starting the New Relic Agent"
-      install_developer_mode rails_config if developer_mode?
+      if install_devmode_routes rails_config if developer_mode?
+      install_devmode_middleware
     end
   end
   
-  def install_developer_mode(rails_config)
+  def install_devmode_routes(rails_config)
     return if @installed
     @installed = true
     controller_path = File.expand_path(File.join(newrelic_root, 'ui', 'controllers'))

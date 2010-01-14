@@ -3,7 +3,6 @@
 ENV['NEWRELIC_DISPATCHER'] = 'none'
 
 $LOAD_PATH << File.expand_path(File.join(File.dirname(__FILE__), '..','..'))
-
 require 'new_relic/rack'
 
 # Valid options which may be present in this binding:
@@ -15,11 +14,11 @@ options ||= {}
 
 use Rack::CommonLogger unless options[:logging] == false
 use Rack::ShowExceptions
-map "http://localhost/metrics" do
-  run NewRelic::Rack::MetricApp.new(options)
-end
 map "/" do
   run NewRelic::Rack::Status.new
+end
+map "/metrics" do
+  run NewRelic::Rack::MetricApp.new(options)
 end
 
 
